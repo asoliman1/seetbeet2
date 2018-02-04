@@ -1,16 +1,101 @@
-// http://ionicframework.com/docs/theming/
+
+@font-face {
+    font-family: 'jannat';
+    src: url('../assets/fonts/A.Jannat.LT.Regular.ttf') format('truetype');
+}
+
+html{
+    font-size:8.5px;
+
+    font-family: 'jannat' !important;
+    
+}
+
+body {
+            font-family: 'jannat' !important;
 
 
-// App Global Sass
-// --------------------------------------------------
-// Put style rules here that you want to apply globally. These
-// styles are for the entire app and not just one component.
-// Additionally, this file can be also used as an entry point
-// to import other Sass files to be included in the output CSS.
-//
-// Shared Sass variables, which can be used to adjust Ionic's
-// default Sass variables, belong in "theme/variables.scss".
-//
-// To declare rules for a specific mode, create a child rule
-// for the .md, .ios, or .wp mode classes. The mode class is
-// automatically applied to the <body> element in the app.
+}
+
+     
+@keyframes bounceInRight { 
+    0% { 
+        opacity: 0; 
+        transform: translateX(150px); 
+    } 
+    60% { 
+        opacity: 1; 
+        transform: translateX(-40px); 
+    } 
+    80% { 
+        transform: translateX(10px); 
+    } 
+    100% { 
+        transform: translateX(0); 
+    } 
+} 
+
+.bounceInRight { 
+    animation-name: fadeInUp; 
+    animation-duration: 1.2s; 
+    
+}
+
+
+@keyframes fadeIn { 
+    0% {opacity: 0;} 
+    100% {opacity: 1;} 
+} 
+.fadeIn { 
+    animation-name: fadeIn;
+    animation-duration: 2s; 
+}
+
+
+
+@keyframes fadeInUp { 
+    0% { 
+        opacity: 0; 
+        transform: translateY(-300px); 
+    } 
+    100% { 
+        opacity: 1; 
+        transform: translateY(0); 
+    } 
+} 
+
+.fadeInUp { 
+    animation-name: fadeInUp;
+    animation-duration: 0.8s 
+}
+
+ion-modal {
+background: rgba(0,0,0,0.5);
+border-radius: 25px;
+}
+
+ion-spinner svg *{
+    stroke: #f7abd8 !important;
+}
+.center-spinner{
+    height:70px;
+    width:70px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -14px;
+    margin-left: -20px;
+}
+.store-item{
+    padding: 0px 20px 0px 0px 20px !important;
+    margin-bottom: 7px !important;
+    border-radius: 5px !important;
+    border-right: 3px solid #f7abd8 !important;
+    border-top-right-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;    
+}
+
+.toast-container{
+background-color: #09C929 ;
+}
+

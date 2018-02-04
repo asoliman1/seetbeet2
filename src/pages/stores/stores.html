@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar color="header" >
+    <button ion-button menuToggle>
+      <ion-icon  name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      المتاجر 
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content text-center padding>
+    <ion-spinner *ngIf="loading" class="center-spinner" ></ion-spinner>    
+    <ion-title *ngIf="!loading&&stores.length==0" > لا يوجد متاجر </ion-title>  
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+    <ion-list >
+        <ion-item-sliding  class="store-item fadeInUp" *ngFor="let store of stores"> 
+        <ion-item  (click)="gotoproducts(store.id)" tappable>
+          <ion-thumbnail item-start>
+             <img *ngIf="store.logo!=null"   src="{{photoUrl}}{{store.logo}}" >
+             <img *ngIf="store.logo==null"  src="assets/icon/no-image.png" >
+          </ion-thumbnail>
+          <h3> {{store.name}}</h3>
+          <h3 *ngIf="store.area!=null" > {{store.area.name}}</h3>
+          <h3 *ngIf="store.worktime_from!=null && store.worktime_to!=null"  >من {{store.worktime_from}} الي {{store.worktime_to}}</h3>        
+        </ion-item>
+        <ion-item-options dir="ltr" side="left">
+            <button ion-button clear large (click)="gotostoreprofile(store.id)"  color="secondary">
+              <ion-icon name="contact"></ion-icon>
+            </button>
+            <button *ngIf="user" large ion-button clear (click)="subscribe(store.id)" color="danger">
+              <ion-icon name="heart"></ion-icon>
+            </button>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+      
+      <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+     
+      
+</ion-content>

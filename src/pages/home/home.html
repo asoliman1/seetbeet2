@@ -1,17 +1,43 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
-</ion-header>
 
-<ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+  <ion-toolbar transparent >
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+  </ion-toolbar>
+
+
+<ion-content >
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+    <ion-spinner *ngIf="loading" class="center-spinner" ></ion-spinner>
+    <ion-title *ngIf="!loading&&stores.length==0" > لا يوجد متاجر </ion-title>  
+    
+  <ion-slides *ngIf="stores.length!=0" loop parallax autoplay="2000" speed="2000" dir="rtl" pager style="height:200px" >
+    <ion-slide (click)="gotoproducts(store.id)" *ngFor="let store of stores" >
+        <img  src="{{photoUrl}}{{store.user.logo}}">
+    </ion-slide>
+  </ion-slides>
+    <ion-list padding >
+      <ion-item-sliding class="fadeInUp" *ngFor="let store of stores"> 
+      <ion-item class="home-item" (click)="gotoproducts(store.user.id)" tappable>
+        <ion-thumbnail item-start>
+           <img  src="{{photoUrl}}{{store.user.logo}}" >
+           <img *ngIf="store.user.logo==null"  src="assets/icon/no-image.png" >           
+        </ion-thumbnail>
+        <h3> {{store.user.name}}</h3>
+        <h3 *ngIf="store.user.area!=null" > {{store.user.area.name}}</h3>
+        <h3 *ngIf="store.user.worktime_from !=null && store.user.worktime_to !=null" >من {{store.user.worktime_from}} الي {{store.user.worktime_to}}</h3>        
+      </ion-item>
+      <ion-item-options dir="ltr" side="left">
+          <button ion-button clear large (click)="gotostoreprofile(store.user.id)"  color="secondary">
+            <ion-icon name="contact"></ion-icon>
+          </button>
+          <button *ngIf="user" ion-button clear large (click)="subscribe(store.user.id)" color="danger">
+            <ion-icon name="heart"></ion-icon>
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+    <div style="height:50px;" ></div>    
 </ion-content>

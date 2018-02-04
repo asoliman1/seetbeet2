@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar color="header" >
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      المتابعات 
+    </ion-title>
+     <ion-buttons right >    
+    <button ion-button (click)="goBack()">
+        <ion-icon ><img style="height:30%;width:50%" src="assets/icon/back.png" ></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content text-center padding>
+  <ion-spinner *ngIf="loading" class="center-spinner" ></ion-spinner>
+  <ion-title *ngIf="!loading&&stores.length==0" > لا يوجد متابعات </ion-title>  
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+  <ion-list >
+        <ion-item-sliding  class="store-item fadeInUp"  *ngFor="let store of stores"> 
+        <ion-item (click)="gotoproducts(store.to_store)" >
+          <ion-thumbnail item-start>
+             <img *ngIf="store.store_id[0].logo!=null" src="{{store.store_id[0].logo}}" >
+             <img *ngIf="store.store_id[0].logo==null"  src="assets/icon/no-image.png" >
+             
+          </ion-thumbnail>
+          <h3> {{store.store_id[0].name}}</h3>
+          <h3>من {{store.store_id[0].worktime_from}} الي {{store.store_id[0].worktime_to}}</h3>        
+        </ion-item>
+        <ion-item-options dir="ltr" side="left">
+            <button ion-button color="danger" (click)="removesubs(store.to_store)" clear large>
+              <ion-icon name="trash"></ion-icon>
+            </button>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+</ion-content>

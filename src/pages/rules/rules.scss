@@ -1,0 +1,13 @@
+page-rules {
+    ion-content{
+        background-image: url('../assets/icon/aboutus.png');
+        background-position: center;
+        background-size: cover;
+        background-attachment: fixed;
+    }
+    .aboutus{
+        margin-top:10px;
+        background-color:rgba(241, 241, 241,0.7) !important ;
+        padding:10px 10px;
+    }
+}

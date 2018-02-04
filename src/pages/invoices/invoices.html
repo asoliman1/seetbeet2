@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar color="header" >
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      فواتيري 
+    </ion-title>
+     <ion-buttons right >    
+    <button ion-button (click)="goBack()">
+        <ion-icon ><img style="height:30%;width:50%" src="assets/icon/back.png" ></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content text-center padding>
+    <ion-spinner *ngIf="loading" class="center-spinner" ></ion-spinner>
+    <ion-title *ngIf="!loading&&invoices.length==0" > لا يوجد فواتير </ion-title>  
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+    <ion-list no-lines >
+        <ion-item-sliding  class="store-item fadeInUp"  *ngFor="let invoice of invoices" >
+           <ion-item (click)="gotoinvoiceaction(invoice)" tappable>
+            <ion-badge color="danger" *ngIf="invoice.seen==0" >1</ion-badge>            
+          <ion-thumbnail item-start>
+             <img *ngIf="invoice.post_id.photo!=null"   src="{{photoUrl}}{{invoice.post_id.photo}}" >
+             <img *ngIf="invoice.post_id.photo==null"  src="assets/icon/no-image.png" >
+            </ion-thumbnail>
+          <h3> {{invoice.post_id.title}}</h3>
+          <h3> {{invoice.comment}}</h3>
+          <h3> {{invoice.title_status}}</h3>
+          <p style="margin-top:80px" item-end> {{invoice.created_at}} </p>  
+           </ion-item>
+           <ion-item-options *ngIf="usertype!='premium'" dir="ltr" side="left">
+            <button color="header" ion-button (click)="gotext(invoice.store_id)">
+              <ion-icon name="chatboxes" ></ion-icon>
+            </button>
+          </ion-item-options>      
+          <ion-item-options dir="ltr" *ngIf="usertype=='premium'"  side="left">
+              <button color="header" ion-button (click)="gotext(invoice.user_id)">
+                <ion-icon name="chatboxes" ></ion-icon>
+              </button>
+            </ion-item-options>      
+      </ion-item-sliding>
+      </ion-list>
+      <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+</ion-content>

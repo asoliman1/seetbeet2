@@ -1,1 +1,76 @@
-<ion-nav [root]="rootPage"></ion-nav>
+<ion-menu type="overlay" side="right" persistent="true" [content]="content">
+
+    <ion-content color="header">
+
+        <ion-list>
+            <ion-item *ngIf="!notuser" color="menu" menuClose>
+                <ion-avatar (click)="gotoprofile();"  style="border:3px solid gray;border-radius:50%" item-start (click)="gotoprofile();">
+                    <img *ngIf="profile_photo!='null'"  src="{{photoUrl}}{{profile_photo}}">
+                    <img *ngIf="profile_photo=='null'" src="assets/icon/eclip.png">
+                </ion-avatar>
+                <h1 (click)="gotoprofile();" >{{profile_name}} </h1>
+                <h3 (click)="gotoprofile();" *ngIf="premium" >تاريخ انتهاء الأشتراك : {{expire_date}} </h3>
+                <p (click)="gotoprofile();"  >اضغط هنا للدخول الي حسابك</p>
+                <ion-icon item-end name="close-circle" menuClose></ion-icon>
+            </ion-item>
+            <ion-item color="menu" menuClose (click)="itemSelected(1);" tappable>
+                الصفحه الرئيسية
+                <ion-icon color="header" name="home" item-start></ion-icon>
+            </ion-item>
+            <ion-item color="menu" *ngIf="!notuser" menuClose (click)="itemSelected(2);" tappable>
+                تعديل بياناتي
+                <ion-icon color="header" name="settings" item-start></ion-icon>
+            </ion-item>
+            <ion-item color="menu" *ngIf="!notuser" menuClose (click)="itemSelected(12);" tappable>
+                     عنواني
+                    <ion-icon color="header" name="pin" item-start></ion-icon>
+                </ion-item>
+                <ion-item color="menu" *ngIf="premium" menuClose (click)="itemSelected(13);" tappable>
+                        الاشتراك
+                       <ion-icon color="header" name="card" item-start></ion-icon>
+                   </ion-item>
+            <ion-item color="menu" *ngIf="!notuser" menuClose (click)="itemSelected(3);" tappable>
+                الأشعارات
+                <ion-icon color="header" name="notifications" item-start></ion-icon>
+            </ion-item>
+            <ion-item color="menu" *ngIf="!notuser" menuClose (click)="itemSelected(11);" tappable>
+                    <ion-badge  color="danger" *ngIf="message_alert!=0" > {{message_alert}} </ion-badge>                                       
+                الرسائل
+                    <ion-icon color="header" name="mail" item-start></ion-icon>
+                </ion-item>
+            <ion-item color="menu" *ngIf="!notuser" menuClose (click)="itemSelected(4);" tappable>
+                    <ion-badge  color="danger" *ngIf="invoice_alert!=0" > {{invoice_alert}} </ion-badge>                                                           
+                فواتيري
+                <ion-icon color="header" name="clipboard" item-start></ion-icon>
+            </ion-item>
+            <ion-item color="menu" *ngIf="premium"  menuClose (click)="itemSelected(5);" tappable>
+                منتجاتي
+                <ion-icon color="header" name="basket" item-start></ion-icon>
+            </ion-item>
+            <ion-item color="menu" *ngIf="premium" menuClose (click)="itemSelected(6);" tappable>
+                اضافه منتج
+                <ion-icon color="header" name="add-circle" item-start></ion-icon>
+            </ion-item>
+            <ion-item color="menu" *ngIf="user" menuClose (click)="itemSelected(7);" tappable>
+                المتاجر المشترك فيها
+                <ion-icon color="header" name="bookmark" item-start></ion-icon>
+            </ion-item>
+           
+            <ion-item color="menu" menuClose (click)="itemSelected(9);" tappable>
+                عن التطبيق
+                <ion-icon color="header" name="tablet-portrait" item-start></ion-icon>
+            </ion-item>
+            <ion-item color="menu" menuClose (click)="itemSelected(14);" tappable>
+                     الشروط و الأحكام
+                    <ion-icon color="header" name="tablet-portrait" item-start></ion-icon>
+                </ion-item>
+            <ion-item color="menu" menuClose (click)="itemSelected(10);" tappable>
+                تسجيل الخروج
+                <ion-icon color="header" name="log-out" item-end></ion-icon>
+            </ion-item>
+
+        </ion-list>
+    </ion-content>
+</ion-menu>
+
+<ion-nav #content [root]="rootPage"></ion-nav>

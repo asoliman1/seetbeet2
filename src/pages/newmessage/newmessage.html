@@ -1,0 +1,38 @@
+<ion-header>
+    <ion-toolbar color="header" >
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>
+        رساله جديده 
+      </ion-title>
+       <ion-buttons right >    
+      <button ion-button (click)="goBack()">
+          <ion-icon ><img style="height:30%;width:50%" src="assets/icon/back.png" ></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content padding>
+
+  <div padding>
+    <ion-item>
+      <ion-label>
+        عنوان الرساله
+      </ion-label>
+      <ion-input [(ngModel)]="message.title" ></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>
+          محتوي الرساله
+        </ion-label>
+        <ion-textarea [(ngModel)]="message.content" ></ion-textarea>
+      </ion-item>
+      <button ion-button round  color="light" (click)="sendmessage()" >
+        <ion-icon large color="header" *ngIf="!loading"  name="chatboxes" ></ion-icon>
+        <ion-spinner *ngIf="loading" ></ion-spinner>
+      </button>
+  </div>
+
+</ion-content>

@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar color="header" >
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      منتجاتي 
+    </ion-title>
+     <ion-buttons right >    
+    <button ion-button (click)="goBack()">
+        <ion-icon ><img style="height:30%;width:50%" src="assets/icon/back.png" ></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-spinner *ngIf="loading" class="center-spinner" ></ion-spinner>
+    <ion-title *ngIf="!loading&&products.length==0" > لا يوجد منتجات </ion-title>  
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+    <ion-list padding >
+      <ion-item-sliding class="store-item"  *ngFor="let product of products"  > 
+        <ion-item   >
+          <ion-thumbnail item-start>
+             <img *ngIf="product.photo!=null"  src="{{photoUrl}}{{product.photo}}" >
+             <img *ngIf="product.photo==null"  src="assets/icon/no-image.png" >
+             
+          </ion-thumbnail>
+          <h3> {{product.title}}</h3>
+          <h3> {{product.content}}</h3>
+          <h3>ريال {{product.price}}</h3>        
+        </ion-item>
+        <ion-item-options dir="ltr" side="left">
+            <button ion-button clear large (click)="removeproduct(product.id)"  color="danger">
+              <ion-icon name="trash"></ion-icon>
+            </button>
+          </ion-item-options>
+      </ion-item-sliding>
+      </ion-list>
+      <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+     
+</ion-content>

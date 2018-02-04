@@ -38,7 +38,8 @@ $colors: (
   secondary:  #32db64,
   danger:     #f53d3d,
   light:      #f4f4f4,
-  dark:       #222
+  dark:       #222,
+  header:    #f7abd8,
 );
 
 
@@ -86,3 +87,11 @@ $colors: (
 
 @import "roboto";
 @import "noto-sans";
+@font-face {
+  font-family: 'jannat';
+  src: url('../assets/fonts/A.Jannat.LT.Regular.ttf') format('truetype');
+}
+$font-family-base: "jannat";
+$font-family-ios-base: $font-family-base;
+$font-family-md-base: $font-family-base;
+$font-family-wp-base: $font-family-base;

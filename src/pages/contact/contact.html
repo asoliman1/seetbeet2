@@ -1,17 +1,48 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Contact
-    </ion-title>
-  </ion-navbar>
-</ion-header>
-
-<ion-content>
-  <ion-list>
-    <ion-list-header>Follow us on Twitter</ion-list-header>
-    <ion-item>
-      <ion-icon name="ionic" item-left></ion-icon>
-      @ionicframework
-    </ion-item>
-  </ion-list>
-</ion-content>
+    <ion-toolbar color="header" >
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>
+        اتصل بنا
+      </ion-title>
+      
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content padding text-center>
+    
+    <img src="assets/icon/LOOOGO.png" style="height:50%" class="fadeIn"/>
+    <div class="spacer" style="height:10px;"></div>
+    <form padding [formGroup]="contactForm" >
+      <ion-item  >
+        <ion-label>الأسم</ion-label>
+        <ion-input type="text" formControlName="name" clearInput></ion-input>
+      </ion-item>
+   <p *ngIf="contactForm.controls.name.errors" style="color:red;font-weight: bold" >ادخل الأسم</p>
+  
+      <ion-item >
+        <ion-label>الأيميل</ion-label>
+        <ion-input type="email" formControlName="email" clearInput></ion-input>
+      </ion-item>
+   <p *ngIf="contactForm.controls.email.errors" style="color:red;font-weight: bold" >ادخل البريد الألكتروني</p>
+  
+      <ion-item >
+        <ion-label>عنوان الرساله</ion-label>
+        <ion-input type="text" formControlName="subject" clearInput></ion-input>
+      </ion-item>
+   <p *ngIf="contactForm.controls.subject.errors" style="color:red;font-weight: bold" >ادخل الموضوع</p>
+  
+      <ion-item >
+        <ion-label>نص الرساله</ion-label>
+      <ion-textarea formControlName="message" ></ion-textarea>
+      </ion-item>
+   <p *ngIf="contactForm.controls.message.errors" style="color:red;font-weight: bold" >ادخل الرساله</p>
+      
+    </form>
+  
+      <button ion-button round color="icon" [disabled]="!contactForm.valid" (click)="send();">ارسال
+        <ion-icon name="send" ></ion-icon>
+      </button>
+      <div style="height:50px;" ></div>
+  </ion-content>

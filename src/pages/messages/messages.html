@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar color="header" >
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      الرسائل 
+    </ion-title>
+     <ion-buttons right >    
+    <button ion-button (click)="goBack()">
+        <ion-icon ><img style="height:30%;width:50%" src="assets/icon/back.png" ></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content text-center padding>
+    <ion-spinner *ngIf="loading" class="center-spinner" ></ion-spinner>
+    <ion-title *ngIf="!loading&&messages.length==0" > لا يوجد رسائل </ion-title>  
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+    <ion-list no-lines >
+      <ion-item-sliding  class="message-item" *ngFor="let message of messages"  > 
+        <ion-item (click)="gotomessagedetails(message)" tappable >
+            <ion-badge color="danger" *ngIf="message.seen==0" >1</ion-badge>                        
+          <ion-avatar item-start>
+             <img *ngIf="message.from_user.logo!=null" src="{{photoUrl}}{{message.from_user.logo}}" >
+             <img *ngIf="message.from_user.logo==null"  src="assets/icon/no-image.png" >
+            </ion-avatar>
+          <b *ngIf="product_id==message.from_user.id&&product_id!=message.to_user.id" > {{message.to_user.name}}</b>
+          <b *ngIf="product_id==message.to_user.id" > {{message.from_user.name}}</b>
+          
+          <h3> {{message.title}}</h3>
+          <p item-end style="margin-top:50px" >{{message.updated_at}}</p>
+        </ion-item>
+        <ion-item-options dir="ltr" side="left">
+            <button ion-button clear large (click)="removemessage(message.id)"  color="danger">
+              <ion-icon name="trash"></ion-icon>
+            </button>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+      <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+</ion-content>

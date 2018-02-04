@@ -1,0 +1,12 @@
+page-addproduct {
+    ion-content{
+        background-color:rgb(241, 241, 241) !important ;
+    }
+    ion-item{
+        margin-bottom: 10px !important;
+    }
+
+    ion-spinner svg *{
+        stroke:white !important;
+    }
+}

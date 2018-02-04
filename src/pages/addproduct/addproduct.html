@@ -1,0 +1,106 @@
+<ion-header>
+  <ion-toolbar color="header" >
+    <button ion-button menuToggle>
+      <ion-icon  name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      اضافه منتج 
+    </ion-title>
+     <ion-buttons right >    
+    <button ion-button (click)="goBack()">
+        <ion-icon ><img style="height:30%;width:50%" src="assets/icon/back.png" ></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content padding>
+
+
+  <ion-list  padding>
+      <ion-item>
+        <ion-label>اسم المنتج : </ion-label>
+        <ion-input [(ngModel)]="productObj.title" ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label item-end >سعر المنتج : </ion-label>
+        <ion-input type="number" [(ngModel)]="productObj.price" ></ion-input>
+        <p item-end>
+          ريال
+        </p>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>
+          تفاصيل المنتج :
+        </ion-label>
+        <ion-textarea [(ngModel)]="productObj.content" placeholder="اكتب نفاصيل المنتج هنا"></ion-textarea>
+      </ion-item>
+            <ion-item  >
+        <ion-label>
+المنطقه :
+         </ion-label>
+        <ion-select interface="popover" (ionChange)="getcities(productObj.areaid)" [(ngModel)]="productObj.areaid" >
+            <ion-option  *ngFor="let area of areas" value="{{area.id}}" >
+              {{area.name}}
+            </ion-option>
+          </ion-select>
+      </ion-item>
+      <ion-item >
+        <ion-label>
+المدينه :
+        </ion-label>
+        <ion-select interface="popover"   [(ngModel)]="productObj.cityid" >
+          <ion-option *ngFor="let city of cities" value="{{city.id}}" >
+            {{city.name}}
+          </ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item  >
+        <ion-label>
+          القسم الرئيسي :
+        </ion-label>
+        <ion-select interface="popover" (ionChange)="getsubdeps()" [(ngModel)]="productObj.dep" >
+            <ion-option  *ngFor="let dep of deps" value="{{dep.id}}" >
+              {{dep.title}}
+            </ion-option>
+          </ion-select>
+      </ion-item>
+      <ion-item >
+        <ion-label>
+          القسم الفرعي :
+        </ion-label>
+        <ion-select interface="popover"   [(ngModel)]="productObj.subdep" >
+          <ion-option *ngFor="let subdep of subdeps" value="{{subdep.id}}" >
+            {{subdep.title}}
+          </ion-option>
+        </ion-select>
+      </ion-item>
+        <ion-row>
+          <ion-col style="margin-right:20px">
+        <button ion-fab item-start color="header" (click)="addpic(1)"  > <ion-icon *ngIf="!image_loading" name="image" ></ion-icon>
+    <ion-spinner *ngIf="image_loading"></ion-spinner>
+    
+        </button>        
+      <p>صوره رئيسية</p>    
+      </ion-col>
+          <ion-col>
+        <button ion-fab item-end color="header" (click)="addpic(5)" ><ion-icon name="images" *ngIf="!images_loading" ></ion-icon>
+    <ion-spinner *ngIf="images_loading"></ion-spinner>
+    
+        </button>                
+        <p>صور للمنتج</p>    
+        
+      </ion-col>          
+        </ion-row>
+  </ion-list>
+  <button ion-button block round color="header" (click)="addproduct()">
+    <ion-icon *ngIf="!addproduct_loading" large name="send" ></ion-icon>
+    <ion-spinner *ngIf="addproduct_loading"></ion-spinner>
+  </button>
+
+</ion-content>

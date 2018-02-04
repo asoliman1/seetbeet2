@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar color="header" >
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      الشروط و الأحكام
+    </ion-title>
+     <ion-buttons right >    
+    <button ion-button (click)="goBack()">
+        <ion-icon ><img style="height:30%;width:50%" src="assets/icon/back.png" ></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+    <ion-spinner *ngIf="loading" class="center-spinner" ></ion-spinner>
+    <div class="aboutus" > 
+    <h1>{{rules.name}}</h1>
+    <h4 style="text-align:right">{{rules.content}}</h4>
+  </div>
+</ion-content>

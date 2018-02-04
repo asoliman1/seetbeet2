@@ -1,0 +1,34 @@
+  <ion-toolbar transparent >
+    <ion-title><strong style="color:white" >
+        تسجيل الدخول 
+    </strong>
+    </ion-title>
+     <ion-buttons right >    
+    <button ion-button (click)="goBack()">
+        <ion-icon ><img style="height:30%;width:50%" src="assets/icon/back.png" ></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+
+<ion-content text-center padding>
+
+    <div class="login" padding>
+        <form  [formGroup]="loginForm">
+          <ion-item style="margin-top:10px;" class="bounceInRight">
+            <ion-label>الأيميل :</ion-label>
+            <ion-input type="email" formControlName="email"  clearInput></ion-input>
+          </ion-item>
+          <p *ngIf="loginForm.controls.email.errors" style="color:red;font-weight: bold">ادخل الايميل</p>
+          <ion-item class="bounceInRight" style="animation-delay: 0.25s;margin-top:5px">
+            <ion-label>كلمه المرور :</ion-label>
+            <ion-input type="password" formControlName="password" clearInput></ion-input>
+          </ion-item>
+          <p *ngIf="loginForm.controls.password.errors" style="color:red;font-weight: bold">ادخل الباسورد</p>
+          <div class="spacer" style="height:10px;"></div>
+        </form>
+        <button ion-button block color="header" [disabled]="!loginForm.valid" (click)="login();">الدخول</button>
+        <div class="spacer" style="height:20px;"></div>
+        <a (click)="forgetpassword();"><b>هل نسيت الباسورد ؟</b></a>
+      </div>
+
+</ion-content>

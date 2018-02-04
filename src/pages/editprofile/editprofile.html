@@ -1,0 +1,176 @@
+<ion-header>
+  <ion-toolbar color="header" >
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      تعديل بياناتي 
+    </ion-title>
+     <ion-buttons right >    
+    <button ion-button (click)="goBack()">
+        <ion-icon ><img style="height:30%;width:50%" src="assets/icon/back.png" ></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content text-center padding>
+    <ion-spinner *ngIf="loading" class="center-spinner" ></ion-spinner>
+ 
+    <ion-list *ngIf="!loading" padding>
+        <ion-item>
+            <ion-avatar>
+            <img *ngIf="profile.logo!=null&&new_image==null" (click)="openfullscreen(photoUrl+profile.logo)" src="{{photoUrl}}{{profile.logo}}" >
+            <img *ngIf="new_image!=null" style="background:blur(3px)" (click)="openfullscreen(new_image)"  src="{{new_image}}" >
+          </ion-avatar>
+           <button ion-button large color="header" (click)="updatepic()" clear item-end >
+             <ion-icon *ngIf="!upload_loading"  name="camera" >
+             </ion-icon>
+             <ion-spinner *ngIf="upload_loading" ></ion-spinner>
+           </button>
+          </ion-item>
+        <ion-item>
+          <ion-input [(ngModel)]="profile.name" [disabled]="disable.name" ></ion-input>
+          <ion-icon item-end color="header" name="options" (click)="disable.name=!disable.name"></ion-icon>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <strong>الأيميل :</strong>
+          </ion-label>
+          <ion-input [(ngModel)]="profile.email" [disabled]="disable.email" ></ion-input>
+          <ion-icon item-end color="header" name="options" (click)="disable.email=!disable.email"></ion-icon>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <strong>الجوال :</strong>
+          </ion-label>
+          <ion-input [(ngModel)]="profile.mobile" type="number" [disabled]="disable.mobile" ></ion-input>
+          <ion-icon item-end color="header" name="options" (click)="disable.mobile=!disable.mobile"></ion-icon>
+       
+        </ion-item>
+        <ion-item >
+            <ion-label>
+              <strong>رقم اخر :</strong>
+            </ion-label>
+            <ion-input [(ngModel)]="profile.other_mobile" type="number" [disabled]="disable.other_mobile" ></ion-input>
+            <ion-icon item-end color="header" name="options" (click)="disable.other_mobile=!disable.other_mobile"></ion-icon>
+         
+          </ion-item>
+          <ion-item >
+              <ion-label>
+                <strong> الهاتف :</strong>
+              </ion-label>
+               <ion-input [(ngModel)]="profile.phone" type="number" [disabled]="disable.phone" ></ion-input>
+              <ion-icon item-end color="header" name="options" (click)="disable.phone=!disable.phone"></ion-icon>
+           
+            </ion-item>
+        <ion-item  >
+          <ion-label>
+            <strong>المنطقه :</strong>
+          </ion-label>
+          <ion-input *ngIf="profile.area!=null" [(ngModel)]="profile.area.name" [disabled]="disable.area" ></ion-input>
+          <ion-icon item-end color="header" name="options" (click)="disable.area=!disable.area"></ion-icon>
+          <ion-select interface="popover" (ionChange)="getcities(profile.area)" [hidden]="!disable.area" [(ngModel)]="profile.area" >
+              <ion-option  *ngFor="let area of areas" value="{{area.id}}" >
+                {{area.name}}
+              </ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item >
+          <ion-label>
+            <strong>المدينه :</strong>
+          </ion-label>
+          <ion-input *ngIf="profile.city!=null" [(ngModel)]="profile.city.name" [disabled]="disable.city" ></ion-input>
+          <ion-icon item-end color="header" name="options" (click)="disable.city=!disable.city"></ion-icon>
+          <ion-select interface="popover"   [hidden]="!disable.city" [(ngModel)]="profile.city" >
+            <ion-option *ngFor="let city of cities" value="{{city.id}}" >
+              {{city.name}}
+            </ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item >
+          <ion-label>
+            <strong>العنوان :</strong>
+          </ion-label>
+          <ion-input [(ngModel)]="profile.address" [disabled]="disable.address" ></ion-input>
+          <ion-icon item-end color="header" name="options" (click)="disable.address=!disable.address"></ion-icon>
+       
+        </ion-item>
+        <ion-item  >
+          <ion-label>
+            <strong>واتس اب :</strong>
+          </ion-label>
+          <ion-input [(ngModel)]="profile.whatsapp" type="number" [disabled]="disable.whatsapp" ></ion-input>
+          <ion-icon item-end color="header" name="options" (click)="disable.whatsapp=!disable.whatsapp"></ion-icon>
+       
+        </ion-item>
+        <ion-item >
+          <ion-label>
+            <strong>انستجرام :</strong>
+          </ion-label>
+          <ion-input [(ngModel)]="profile.instagram" [disabled]="disable.instagram" ></ion-input>
+          <ion-icon item-end color="header" name="options" (click)="disable.instagram=!disable.instagram"></ion-icon>
+       
+        </ion-item>
+        <ion-item >
+          <ion-label>
+            <strong>فيس بوك :</strong>
+          </ion-label>
+          <ion-input [(ngModel)]="profile.facebook" [disabled]="disable.facebook" ></ion-input>
+          <ion-icon item-end color="header" name="options" (click)="disable.facebook=!disable.facebook"></ion-icon>
+       
+        </ion-item>
+        <ion-item *ngIf="premium" >
+            <ion-label>
+              <strong> التوصيل :</strong>
+            </ion-label>
+            <ion-input [(ngModel)]="profile.delivery" [disabled]="disable.delivery" ></ion-input>
+            <ion-icon item-end color="header" name="options" (click)="disable.delivery=!disable.delivery"></ion-icon>
+         
+          </ion-item>
+          <ion-item *ngIf="premium" >
+              <ion-label>
+                <strong> مواعيد العمل من :</strong>
+              </ion-label>
+             
+              <ion-input [(ngModel)]="profile.worktime_from" type="number" [disabled]="disable.worktime_from" ></ion-input>
+              <ion-select [disabled]="disable.worktime_from"  interface="popover" [(ngModel)]="fromtime" >
+                  <ion-option value="'صباحاً'" >
+                    صباحاً
+                  </ion-option>
+                  <ion-option value="'مساءً'" >
+                      مساءً
+                    </ion-option>
+                </ion-select>
+              <ion-icon item-end color="header" name="options" (click)="disable.worktime_from=!disable.worktime_from"></ion-icon>
+            </ion-item>
+
+            <ion-item *ngIf="premium" >
+                <ion-label>
+                  <strong> مواعيد العمل الي :</strong>
+                </ion-label>
+                <ion-input [(ngModel)]="profile.worktime_to" type="number" [disabled]="disable.worktime_to" ></ion-input>
+                <ion-select [disabled]="disable.worktime_to"  interface="popover" [(ngModel)]="totime" >
+                    <ion-option value="'صباحاً'" >
+                      صباحاً
+                    </ion-option>
+                    <ion-option value="'مساءً'" >
+                        مساءً
+                      </ion-option>
+                  </ion-select>
+                <ion-icon item-end color="header" name="options" (click)="disable.worktime_to=!disable.worktime_to"></ion-icon>
+              </ion-item>
+              <ion-item  >
+                  <ion-label>
+                    <strong>  الباسورد :</strong>
+                  </ion-label>
+                  <ion-input [(ngModel)]="profile.password" type="password" [disabled]="disable.password" ></ion-input>
+                  <ion-icon item-end color="header" name="options" (click)="disable.password=!disable.password"></ion-icon>
+                </ion-item>
+                <button ion-button (click)="updateprofile()" block color="header" > تعديل الحساب<ion-icon style="margin-right:5px" name="send" ></ion-icon>  </button>
+                
+      </ion-list>
+
+
+</ion-content>

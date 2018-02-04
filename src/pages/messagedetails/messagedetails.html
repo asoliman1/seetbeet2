@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar color="header" >
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      رساله من :  {{message.to_user.name}}
+    </ion-title>
+     <ion-buttons right >    
+    <button ion-button (click)="goBack()">
+        <ion-icon ><img style="height:30%;width:50%" src="assets/icon/back.png" ></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+    <ion-spinner *ngIf="loading" class="center-spinner" ></ion-spinner>
+      <div *ngFor="let replay of replays" [class]="replay.user_id.id==myid ? 'messageRight' : 'messageLeft' " >
+
+      <b  > {{replay.user_id.name}} </b> <br/>
+      <p>{{replay.message}}</p>
+      </div>
+   
+  <ion-infinite-scroll position="top" (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+<ion-footer >
+    <ion-toolbar transparent style="border-radius:30px">
+      <ion-item class="texarea" no-lines style="height:30px;border-radius:15px;background-color:rgb(241, 241, 241)">
+        <ion-textarea [(ngModel)]="text" placeholder="اكتب رساله" ></ion-textarea>
+        <button ion-button clear (click)="addreplay()" color="header" item-end><ion-icon name="send" ></ion-icon></button>
+      </ion-item>
+    </ion-toolbar>
+  </ion-footer>

@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar color="header" >
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      الاشعارات 
+    </ion-title>
+     <ion-buttons right >    
+    <button ion-button (click)="goBack()">
+        <ion-icon ><img style="height:30%;width:50%" src="assets/icon/back.png" ></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-spinner *ngIf="loading" class="center-spinner" ></ion-spinner>
+    <ion-title *ngIf="!loading&&notifications.length==0" > لا يوجد اشعارات </ion-title>  
+    
+    <ion-card class="notification-card" class="fadeInUp" *ngFor="let notification of notifications" >
+        <ion-card-header>
+          <ion-row>
+            <ion-col>
+                <ion-icon name="notifications" color="header" ></ion-icon>
+            </ion-col>
+            <ion-col>
+            <b>{{notification.title}}</b>                 
+            </ion-col>
+          </ion-row>
+        </ion-card-header>
+        <ion-card-content>
+          {{notification.content}}
+        </ion-card-content>
+        <p style="text-align:left;margin-left:5px;" >{{notification.created_at}}</p>
+      </ion-card>
+</ion-content>

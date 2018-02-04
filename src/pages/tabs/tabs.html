@@ -1,5 +1,16 @@
-<ion-tabs>
-  <ion-tab [root]="tab1Root" tabTitle="Home" tabIcon="home"></ion-tab>
-  <ion-tab [root]="tab2Root" tabTitle="About" tabIcon="information-circle"></ion-tab>
-  <ion-tab [root]="tab3Root" tabTitle="Contact" tabIcon="contacts"></ion-tab>
+
+<ion-tabs color="header">
+  <ion-tab [root]="tab1Root" tabTitle="الرئيسية" tabIcon="home"></ion-tab>
+  <ion-tab [root]="tab2Root" tabTitle="المتاجر" tabIcon="briefcase"></ion-tab>
+  <ion-tab [root]="tab4Root" tabTitle="العروض" tabIcon="trending-down"></ion-tab> 
+  <ion-tab [root]="tab3Root" tabTitle="اتصل بنا" tabIcon="contacts"></ion-tab>  
 </ion-tabs>
+<ion-footer style="margin-bottom:48px;">
+    <ion-toolbar color="light" >
+      <ion-spinner *ngIf="loading" ></ion-spinner>
+      <ion-title *ngIf="banners.length==0&&!loading" > لا يوجد اعلانات </ion-title>
+        <ion-col *ngFor="let banner of banners" >
+            {{banner}}
+          </ion-col>
+    </ion-toolbar>
+    </ion-footer>

@@ -1,0 +1,23 @@
+<ion-header>
+    <ion-toolbar color="header" >
+      <ion-title>
+        صفحه التفعيل
+      </ion-title>
+       <ion-buttons right >    
+      <button ion-button (click)="goBack()">
+          <ion-icon ><img style="height:20%;width:50%" src="assets/icon/back.png" ></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  
+  <ion-content padding>
+    <ion-item>
+      <ion-label floating>الكود</ion-label>
+      <ion-input [(ngModel)]="code" type="text"></ion-input>
+    </ion-item>
+    <div class="spacer" style="height:30px;"></div>
+    <button ion-button color="danger" (click)="activate();"  >ادخل </button>
+    <a (click)="resend();" >ارسال الكود مره اخري ؟ </a>
+  </ion-content>

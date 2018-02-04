@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar color="header" >
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      {{productdetails.title}} 
+    </ion-title>
+    <ion-buttons *ngIf="!notuser" right >    
+        <button ion-button  (click)="gotext()">
+            <ion-icon large name="chatboxes" ></ion-icon>
+          </button>
+        </ion-buttons>
+     <ion-buttons right >    
+    <button ion-button (click)="goBack()">
+        <ion-icon ><img style="height:30%;width:50%" src="assets/icon/back.png" ></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding text-center >
+  <ion-item style="border:1px solid #E20489;margin-bottom:10px;" no-lines >
+    {{productdetails.department_id.title}}
+  </ion-item>
+  <img *ngIf="productdetails.photo!=null" style="max-height:200px;"  src="{{photoUrl}}{{productdetails.photo}}" >
+  <img *ngIf="productdetails.photo==null" src="assets/icon/no-image.png">
+  <h2 >وصف المنتج</h2>
+  <div padding class="product-content"> 
+  <p > التفاصيل : {{productdetails.content}}</p>  
+</div>
+  <ion-slides *ngIf="productdetails.files.length!=0" parallax autoplay="1000" speed="1000" slidesPerView="3"  dir="rtl" pager >
+    <ion-slide (click)="gofullscreen(photo.path+photo.file)"  *ngFor="let photo of productdetails.files" >
+      <img  *ngIf="photo.file!=null" src="{{photoUrl}}{{photo.path}}{{photo.file}}" >
+    </ion-slide>
+  </ion-slides>
+  <div>
+  <button ion-button color="secondary" > السعر : {{productdetails.price}} ريال</button>
+  <button ion-button (click)="purchaseproduct()" color="header" >شراء المنتج</button>
+  </div>
+  <h2>التعليقات</h2>
+<div padding> 
+  <p *ngIf="!loading&&comments.length==0" >
+    لا يوجد تعليقات
+  </p>
+    <ion-spinner *ngIf="loading" ></ion-spinner>    
+    <ion-list no-lines padding>
+      <ion-item-sliding *ngFor="let comment of comments" >
+        <ion-item class="comment-item"  >
+          <ion-avatar item-start>
+            <img src="{{photoUrl}}{{comment.user_id[0].logo}}">
+          </ion-avatar>
+          <h2>{{comment.user_id[0].name}}</h2>
+          <p>{{comment.comment}}</p>
+        </ion-item>
+        <ion-item-options *ngIf="!notuser"  dir="ltr" side="left">
+            <button ion-button clear large (click)="removecomment(comment.id)"  color="danger">
+              <ion-icon name="trash"></ion-icon>
+            </button>
+          </ion-item-options>
+      </ion-item-sliding>
+        <ion-item class="comment" *ngIf="!notuser" > 
+          <ion-textarea [(ngModel)]="comment" style="height:20px" placeholder="اكتب تعليق" ></ion-textarea>
+          <button ion-button (click)="addcomment()" round color="header" item-end><ion-icon name="send" ></ion-icon></button>
+        </ion-item>
+      </ion-list>
+    </div>
+</ion-content>

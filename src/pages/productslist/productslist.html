@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar color="header" >
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+       المنتجات 
+    </ion-title>
+     <ion-buttons right >    
+    <button ion-button (click)="goBack()">
+        <ion-icon ><img style="height:30%;width:50%" src="assets/icon/back.png" ></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content text-center padding>
+    <ion-spinner *ngIf="loading" class="center-spinner" ></ion-spinner>
+    <ion-title *ngIf="!loading&&products.length==0" > لا يوجد منتجات </ion-title>  
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+    <ion-list >
+        <ion-item class="store-item fadeInUp"  (click)="gotoproductdetail(product)" *ngFor="let product of products" tappable >
+          <ion-thumbnail item-start>
+             <img  src="{{photoUrl}}{{product.photo}}" >
+          </ion-thumbnail>
+          <h3> {{product.title}}</h3>
+          <h3> {{product.department_id.title}}</h3>
+          <h3> {{product.price}} ريال</h3>        
+        </ion-item>
+      </ion-list>
+      <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+</ion-content>

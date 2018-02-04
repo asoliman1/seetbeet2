@@ -1,0 +1,17 @@
+page-profile {
+    ion-content{
+        background-color:rgb(241, 241, 241) !important ;
+    }
+    ion-item{
+        border-radius: 15px;
+        border-right: 5px solid #78D0EB !important ;
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;        
+        margin-bottom: 7px !important ;
+    }
+    .pp{
+        margin-bottom: 10px;
+        border-radius: 50px;
+        border: 1px solid white;
+    }
+}

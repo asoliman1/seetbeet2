@@ -1,11 +1,24 @@
 <ion-header>
-  <ion-navbar>
+  <ion-toolbar transparent >
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>
-      About
+      عن التطبيق
     </ion-title>
-  </ion-navbar>
+    <ion-buttons right >    
+        <button ion-button (click)="goBack()">
+            <ion-icon ><img style="height:30%;width:50%" src="assets/icon/back.png" ></ion-icon>
+          </button>
+        </ion-buttons>
+  </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-
+<ion-content text-center padding>
+    <img src="assets/icon/LOOOGO.png" style="height:50%" class="fadeIn"/>
+    <ion-spinner *ngIf="loading" class="center-spinner" ></ion-spinner>
+    <div class="aboutus" > 
+    <h1>{{about.name}}</h1>
+    <h4 style="text-align:right">{{about.content}}</h4>
+  </div>
 </ion-content>

@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar color="header" >
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      العروض 
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content text-center padding>
+    <ion-spinner *ngIf="loading" class="center-spinner" ></ion-spinner>
+    <ion-title *ngIf="!loading&&offers.length==0" > لا يوجد عروض </ion-title>  
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+  <ion-list no-lines >
+    <ion-item-sliding class="store-item fadeInUp" *ngFor="let offer of offers"  >
+    <ion-item  (click)="gotoproductdetails(offer)" tappable>
+      <ion-thumbnail item-start>
+         <img *ngIf="offer.photo!=null" src="{{photoUrl}}{{offer.photo}}" >
+         <img *ngIf="offer.photo==null" src="assets/icon/no-image.png" >
+         
+      </ion-thumbnail>
+      <h3 *ngIf="offer.title!=null" > {{offer.title}}</h3>
+      <h3 *ngIf="offer.department_id!=null" > {{offer.department_id.title}}</h3>
+      <h3 *ngIf="offer.price!=null" >ريال {{offer.price}}</h3> 
+      <p > {{offer.user_id.name}} </p>       
+    </ion-item>
+    <ion-item-options dir="ltr" side="left">
+      <button ion-button clear large (click)="gotostoreprofile(offer.user_id.id)"  color="secondary">
+        <ion-icon name="contact"></ion-icon>
+      </button>
+    </ion-item-options>
+  </ion-item-sliding>
+  </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+ 
+</ion-content>

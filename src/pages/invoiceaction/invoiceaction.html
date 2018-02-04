@@ -1,0 +1,35 @@
+<ion-header>
+    <ion-toolbar color="header" >
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>
+        فواتيري 
+      </ion-title>
+       <ion-buttons right >    
+      <button ion-button (click)="goBack()">
+          <ion-icon ><img style="height:30%;width:50%" src="assets/icon/back.png" ></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+
+<ion-content padding>
+  <ion-item>
+    <ion-label>
+      اختار الحاله : 
+    </ion-label>
+  <ion-select [(ngModel)]="status" interface="popover" >
+    <ion-option value="panding" >بالأنتظار</ion-option>
+    <ion-option value="refused" >مرفوض</ion-option>
+    <ion-option value="accept" >تمت الموافقه علي الطلب</ion-option>
+    <ion-option value="order_sent" >تم تسليم الطلب</ion-option>    
+  </ion-select>
+  </ion-item>
+    <button ion-button *ngIf="!loading"  round (click)="addinvoiceaction()" >
+      تحديث
+    </button>
+    <ion-spinner *ngIf="loading" ></ion-spinner>
+    
+</ion-content>
